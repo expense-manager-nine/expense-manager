@@ -6,15 +6,19 @@ import { AddTransactionDialog } from './add-transaction-dialog';
 import { AddTransactionMenu } from './add-transaction-menu';
 import { TransactionItem } from './transaction-item';
 
-export function TransactionsSection({
-  transactions,
-  addTransactions,
-  deleteTransaction,
-}: {
+interface Props {
   transactions: Transaction[];
+  defaultDate: Date;
   addTransactions: (transactions: Transaction[]) => void;
   deleteTransaction: (id: string) => void;
-}) {
+}
+
+export function TransactionsSection({
+  transactions,
+  defaultDate,
+  addTransactions,
+  deleteTransaction,
+}: Props) {
   const [form, setForm] = useState<TransactionType>();
 
   const closeForm = () => setForm(undefined);
@@ -49,7 +53,7 @@ export function TransactionsSection({
           <AddTransactionDialog
             type={form}
             show={true}
-            defaultDate={new Date()}
+            defaultDate={defaultDate}
             onClose={closeForm}
             onSubmit={addTransaction}
           />
